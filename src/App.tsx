@@ -187,7 +187,7 @@ export default function App() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
-              <span className="font-bold text-xs tracking-tight uppercase">Studio Consistent <span className="text-gray-500 font-mono font-normal ml-2">v1.2.4</span></span>
+              <span className="font-bold text-xs tracking-tight uppercase">Nano Banana Consistent <span className="text-gray-500 font-mono font-normal ml-2">v2.0.1</span></span>
             </div>
             <div className="h-4 w-px bg-[#2a2d35]"></div>
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-green-400">
@@ -239,7 +239,7 @@ export default function App() {
                               </div>
                               <div className="space-y-1">
                                 <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-blue-400">
-                                  {prompt.status === GenerationStatus.REFINING ? 'Synthesizing' : 'Rendering'}
+                                  {prompt.status === GenerationStatus.REFINING ? 'Synthesizing' : 'Nano Rendering'}
                                 </p>
                               </div>
                             </div>
@@ -299,7 +299,7 @@ export default function App() {
                     <div className="w-1.5 h-1.5 rounded-full bg-current"></div>
                     <div className="h-px w-8 bg-current"></div>
                  </div>
-                 <p className="text-[9px] font-mono font-bold uppercase tracking-[0.5em] text-gray-600">Secure Sequential Link Active</p>
+                 <p className="text-[9px] font-mono font-bold uppercase tracking-[0.5em] text-gray-600">Secure Nano Link Active</p>
               </footer>
             </div>
           </div>
@@ -310,7 +310,7 @@ export default function App() {
              <section>
                 <div className="flex items-center gap-2 mb-4">
                    <Settings2 className="w-3.5 h-3.5 text-gray-500" />
-                   <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Master Consistency</h3>
+                   <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Nano Banana Cohesion</h3>
                 </div>
                 <div className="space-y-5">
                    <div>
@@ -340,7 +340,7 @@ export default function App() {
              <section className="space-y-4">
                 <div className="flex items-center gap-2">
                    <Sparkles className="w-3.5 h-3.5 text-gray-500" />
-                   <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Reasoning Engine (사고 모드)</h3>
+                   <h3 className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Banana Core Pulse (사고 모드)</h3>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                    <button 
@@ -426,7 +426,7 @@ export default function App() {
 
              {/* System Logistics */}
              <section>
-                <h3 className="text-[10px] font-bold uppercase text-gray-500 mb-3 tracking-widest">Logic Flow</h3>
+                <h3 className="text-[10px] font-bold uppercase text-gray-500 mb-3 tracking-widest">Nano Banana Logic Flow</h3>
                 <div className="bg-[#0f1115] p-3 rounded text-[10px] font-mono text-gray-500 leading-relaxed border border-[#2a2d35] space-y-1">
                   <div className="flex justify-between border-b border-[#2a2d35]/50 pb-1">
                     <span>PROMPT_CHAINING</span>
@@ -444,7 +444,7 @@ export default function App() {
                 <div className="mt-4 grid grid-cols-2 gap-2">
                    <div className="p-2 bg-[#2a2d35] rounded text-center border border-white/5">
                       <div className="text-[9px] text-gray-500 uppercase font-bold">Model</div>
-                      <div className="text-[11px] font-bold text-white uppercase mt-0.5">Gemini 3</div>
+                      <div className="text-[11px] font-bold text-white uppercase mt-0.5">Nano Banana</div>
                    </div>
                    <div className="p-2 bg-[#2a2d35] rounded text-center border border-white/5">
                       <div className="text-[9px] text-gray-500 uppercase font-bold">Batch</div>
@@ -461,10 +461,10 @@ export default function App() {
                 </div>
                 <div className="space-y-1">
                    <p className="text-[9px] text-gray-400 leading-normal italic">
-                     * Account Connected: AI Studio Secrets Panel
+                     * Account Connected: Nano Banana Cloud
                    </p>
                    <p className="text-[9px] text-gray-500 leading-tight">
-                     제미나이 계정 정보는 AI Studio의 'Secrets'에서 설정된 API 키를 통해 자동으로 연동되어 작동합니다.
+                     나노 바나나 시스템은 AI Studio의 Secrets를 통해 자동으로 연동되어 작동합니다.
                    </p>
                 </div>
              </div>

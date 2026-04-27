@@ -1,9 +1,9 @@
 {
-  "name": "Studio Consistent",
-  "description": "A professional AI image orchestrator that generates consistent visual collections using a Master Style engine.",
+  "name": "Nano Banana Consistent",
+  "description": "A high-density AI image orchestrator powered by the Nano Banana Sequential Engine.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "Image Generation",
-    "AI Prompt Refinement"
+    "Nano Banana Sequential Logic"
   ]
 }
