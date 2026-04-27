@@ -6,7 +6,18 @@
 import { GoogleGenAI } from "@google/genai";
 import { MasterStyle, RefinementModel } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+let aiClient: GoogleGenAI | null = null;
+
+function getAIClient(): GoogleGenAI {
+  if (!aiClient) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY is not set. Please configure it in your environment or Secrets panel.");
+    }
+    aiClient = new GoogleGenAI({ apiKey });
+  }
+  return aiClient;
+}
 
 /**
  * Refines a raw prompt into a detailed one based on the Master Style.
@@ -29,6 +40,7 @@ INSTRUCTIONS:
 3. Creative Expansion: Add details about lighting, camera angle, and atmosphere that reinforce the CORE STYLE.
 4. Output: A single highly descriptive paragraph. No intros/outros.`;
 
+  const ai = getAIClient();
   const response = await ai.models.generateContent({
     model: model,
     contents: `Transform this raw idea into a masterpiece: "${rawPrompt}"`,
@@ -45,6 +57,7 @@ INSTRUCTIONS:
  * Generates an image from a refined prompt.
  */
 export async function generateImage(refinedPrompt: string): Promise<string> {
+  const ai = getAIClient();
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash-image",
     contents: {

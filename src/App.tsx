@@ -87,6 +87,34 @@ export default function App() {
     setIsProcessing(false);
   };
 
+  const handleExport = async () => {
+    const completedPrompts = prompts.filter(p => p.status === GenerationStatus.COMPLETED && p.imageUrl);
+    if (completedPrompts.length === 0) {
+      alert("No completed images to export.");
+      return;
+    }
+
+    for (let i = 0; i < completedPrompts.length; i++) {
+      const prompt = completedPrompts[i];
+      if (!prompt.imageUrl) continue;
+      
+      try {
+        const response = await fetch(prompt.imageUrl);
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `nano-banana-node-${i + 1}.jpg`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        window.open(prompt.imageUrl, "_blank");
+      }
+    }
+  };
+
   return (
     <div className="h-screen bg-[#0f1115] text-[#e1e1e6] font-sans flex overflow-hidden antialiased selection:bg-blue-500 selection:text-white">
       {/* Left Sidebar: Sequential Queue */}
@@ -198,7 +226,7 @@ export default function App() {
             <div className="hidden sm:flex items-center px-3 py-1.5 border border-[#2a2d35] rounded text-[10px] font-bold uppercase tracking-wider text-gray-400 font-mono">
               MEM: 12.4GB / 32GB
             </div>
-            <button className="px-3 py-1.5 bg-white text-black font-bold rounded text-[10px] uppercase tracking-wider hover:bg-gray-200 transition-colors">Export Assets</button>
+            <button onClick={handleExport} className="px-3 py-1.5 bg-white text-black font-bold rounded text-[10px] uppercase tracking-wider hover:bg-gray-200 transition-colors">Export Assets</button>
           </div>
         </header>
 
