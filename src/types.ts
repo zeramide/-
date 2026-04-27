@@ -16,6 +16,18 @@ export enum RefinementModel {
   THINKING = 'gemini-2.0-flash-thinking-exp-01-21',
 }
 
+export enum ImageResolution {
+  R720P = '720p',
+  R1080P = '1080p',
+  R2048P = '2048p',
+}
+
+export enum ImageAspectRatio {
+  LANDSCAPE = '16:9',
+  PORTRAIT = '9:16',
+  SQUARE = '1:1',
+}
+
 export interface ImagePrompt {
   id: string;
   rawInput: string;

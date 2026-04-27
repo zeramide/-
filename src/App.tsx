@@ -24,7 +24,9 @@ import {
   ImagePrompt, 
   MasterStyle, 
   DEFAULT_STYLES,
-  RefinementModel 
+  RefinementModel,
+  ImageResolution,
+  ImageAspectRatio
 } from './types';
 import { refinePrompt, generateImage } from './services/geminiService';
 
@@ -34,6 +36,8 @@ export default function App() {
   ]);
   const [selectedStyle, setSelectedStyle] = useState<MasterStyle>(DEFAULT_STYLES[0]);
   const [refinementModel, setRefinementModel] = useState<RefinementModel>(RefinementModel.FLASH);
+  const [resolution, setResolution] = useState<ImageResolution>(ImageResolution.R1080P);
+  const [aspectRatio, setAspectRatio] = useState<ImageAspectRatio>(ImageAspectRatio.LANDSCAPE);
   const [customStyleDesc, setCustomStyleDesc] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -68,7 +72,7 @@ export default function App() {
       
       // 2. Generating
       setPrompts(prev => prev.map(p => p.id === id ? { ...p, refinedPrompt: refined, status: GenerationStatus.GENERATING } : p));
-      const url = await generateImage(refined);
+      const url = await generateImage(refined, aspectRatio, resolution);
 
       // 3. Completed
       setPrompts(prev => prev.map(p => p.id === id ? { ...p, imageUrl: url, status: GenerationStatus.COMPLETED } : p));
@@ -187,6 +191,55 @@ export default function App() {
         </div>
 
         <div className="p-4 bg-[#0f1115] border-t border-[#2a2d35] space-y-3">
+          <div className="space-y-2 mb-4 border-b border-[#2a2d35] pb-4">
+            <div className="space-y-1">
+              <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Output Resolution</label>
+              <div className="flex gap-1">
+                {Object.values(ImageResolution).map(res => (
+                  <button
+                    key={res}
+                    onClick={() => setResolution(res)}
+                    className={`flex-1 py-1.5 rounded text-[10px] font-bold border transition-colors ${
+                      resolution === res ? 'bg-blue-500 border-blue-500 text-white' : 'bg-transparent border-[#2a2d35] text-gray-400 hover:border-gray-500'
+                    }`}
+                  >
+                    {res}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            <div className="space-y-1">
+              <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Aspect Ratio</label>
+              <div className="flex gap-1">
+                <button
+                  onClick={() => setAspectRatio(ImageAspectRatio.LANDSCAPE)}
+                  className={`flex-1 py-1.5 rounded text-[10px] font-bold border transition-colors ${
+                    aspectRatio === ImageAspectRatio.LANDSCAPE ? 'bg-blue-500 border-blue-500 text-white' : 'bg-transparent border-[#2a2d35] text-gray-400 hover:border-gray-500'
+                  }`}
+                >
+                  가로 (16:9)
+                </button>
+                <button
+                  onClick={() => setAspectRatio(ImageAspectRatio.PORTRAIT)}
+                  className={`flex-1 py-1.5 rounded text-[10px] font-bold border transition-colors ${
+                    aspectRatio === ImageAspectRatio.PORTRAIT ? 'bg-blue-500 border-blue-500 text-white' : 'bg-transparent border-[#2a2d35] text-gray-400 hover:border-gray-500'
+                  }`}
+                >
+                  세로 (9:16)
+                </button>
+                <button
+                  onClick={() => setAspectRatio(ImageAspectRatio.SQUARE)}
+                  className={`flex-1 py-1.5 rounded text-[10px] font-bold border transition-colors ${
+                    aspectRatio === ImageAspectRatio.SQUARE ? 'bg-blue-500 border-blue-500 text-white' : 'bg-transparent border-[#2a2d35] text-gray-400 hover:border-gray-500'
+                  }`}
+                >
+                  정방향 (1:1)
+                </button>
+              </div>
+            </div>
+          </div>
+
           <button 
             onClick={addPrompt}
             className="w-full py-2 bg-[#2a2d35] hover:bg-[#353945] text-white rounded text-[10px] font-bold transition-all uppercase tracking-widest flex items-center justify-center gap-2"
@@ -255,12 +308,17 @@ export default function App() {
                     layout
                     className="group space-y-3"
                   >
-                    <div className="aspect-square bg-[#090a0c] rounded border border-[#2a2d35] relative overflow-hidden transition-all duration-500 group-hover:border-blue-500/50 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.1)]">
+                    <div 
+                      className={`bg-[#090a0c] rounded border border-[#2a2d35] relative overflow-hidden transition-all duration-500 group-hover:border-blue-500/50 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] flex items-center justify-center ${
+                        aspectRatio === ImageAspectRatio.LANDSCAPE ? 'aspect-video' : 
+                        aspectRatio === ImageAspectRatio.PORTRAIT ? 'aspect-[9/16] w-2/3 mx-auto' : 'aspect-square'
+                      }`}
+                    >
                       {prompt.imageUrl ? (
                         <img 
                           src={prompt.imageUrl} 
                           alt={prompt.rawInput}
-                          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-700" 
+                          className="w-full h-full object-contain bg-black/50 opacity-90 group-hover:opacity-100 transition-all duration-700" 
                           referrerPolicy="no-referrer"
                         />
                       ) : (
