@@ -166,6 +166,12 @@ export default function App() {
                   className="w-full text-xs text-gray-300 bg-transparent border-none outline-none resize-none placeholder:text-gray-600 min-h-[40px] leading-relaxed"
                   disabled={isProcessing}
                 />
+                
+                {prompt.status === GenerationStatus.ERROR && prompt.error && (
+                  <div className="text-[10px] text-red-400 mt-2 p-1.5 bg-red-500/10 rounded min-h-0 break-words">
+                    {prompt.error}
+                  </div>
+                )}
 
                 <div className="flex items-center justify-end gap-2 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button 
