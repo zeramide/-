@@ -1,0 +1,9 @@
+{
+  "name": "Studio Consistent",
+  "description": "A professional AI image orchestrator that generates consistent visual collections using a Master Style engine.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "Image Generation",
+    "AI Prompt Refinement"
+  ]
+}
